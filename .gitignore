@@ -1,9 +1,4 @@
 bower_components/
-vendor/
-storage/devHelper_cache.db
-
-webservice/devHelper_cache.db
-
-webservice/connect.php
-
-webservice/connect.php
+webservice/lib/connect.php
+webservice/lib/emptyCache.php
+webservice/search_inizialize.php
