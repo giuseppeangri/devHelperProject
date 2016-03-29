@@ -1,0 +1,50 @@
+[
+	{
+		"language" : "Java 6",
+		"url" : "https://docs.oracle.com/javase/6/docs/api/"
+	},
+	{
+		"language" : "Java 7",
+		"url" : "https://docs.oracle.com/javase/7/docs/api/"
+	},
+	{
+		"language" : "Java 8",
+		"url" : "https://docs.oracle.com/javase/8/docs/api/"
+	},
+	{
+		"language" : "MySQL 5.6",
+		"url" : "https://dev.mysql.com/doc/refman/5.6/en/"
+	},
+	{
+		"language" : "MySQL 5.7",
+		"url" : "https://dev.mysql.com/doc/refman/5.7/en/"
+	},
+	{
+		"language" : "nVidia Cuda",
+		"url" : "http://docs.nvidia.com/cuda/"
+	},
+	{
+		"language" : "Apache Struts",
+		"url" : "https://struts.apache.org/docs/home.html"
+	},
+	{
+		"language" : "Spring MVC",
+		"url" : "http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/"
+	},
+	{
+		"language" : "Swift",
+		"url" : "https://swift.org/documentation/"
+	},
+	{
+		"language" : "Apache Solr",
+		"url" : "http://lucene.apache.org/solr/5_3_1/index.html"
+	},
+	{
+		"language" : "Apache Lucene",
+		"url" : "http://lucene.apache.org/core/5_5_0/"
+	},
+	{
+		"language" : "Apache Pig",
+		"url" : "https://pig.apache.org/docs/r0.15.0/"
+	}
+]
