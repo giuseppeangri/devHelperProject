@@ -1,0 +1,275 @@
+<md-toolbar style="background-color: transparent;
+border-top: solid 4px #006064;">
+  <div class="md-toolbar-tools">
+      	      
+    <div style="width: 100%; color: black;" layout="row" layout-align="start center">
+	    
+      <a href="home">
+	      <md-button style="color: black;">DevHelper</md-button>
+      </a>
+      
+      <md-autocomplete
+				style="width: 60%;"
+        md-selected-item="inputKeywordObj"
+        md-search-text-change=""
+        md-search-text="inputKeyword"
+        md-selected-item-change=""
+        md-items="item in SearchCtrl.querySearch(inputKeyword)"
+        md-min-length="0">
+	      <md-item-template>
+	        <span md-highlight-text="inputKeyword" md-highlight-flags="^i">{{item}}</span>
+	      </md-item-template>
+	      <md-not-found style="background-color: red;">
+	        Results for <strong>"{{inputKeyword}}"</strong> may not be accurate
+	      </md-not-found>
+	    </md-autocomplete>
+	    
+	    <md-button class="md-raised md-accent md-hue-2" ng-click="SearchCtrl.getData(selectedType, types[selectedType])">
+	    	<md-icon>search</md-icon>
+	    </md-button>
+    </div>
+    
+<!--
+    <div style="width: 100%;" layout="row" layout-align="end center">
+      <md-button style="color: black;">About Us</md-button>
+      <md-button style="color: black;">Technologies</md-button>
+    </div>
+-->
+    
+  </div>
+</md-toolbar>
+
+<md-content fullscreen="68">
+
+	<md-tabs md-dynamic-height md-border-bottom>
+	
+		<md-tab ng-repeat="(key, type) in types" label="{{type.title}}" md-active="type.selected" md-on-select="SearchCtrl.getData(key, type)">
+		  <md-content class="md-padding" style="padding-left: 4%; padding-right: 4%;">
+
+		    <div ng-if="type.loading" layout="row" layout-align="center center" style="padding-top: 10%; font-size: larger;">
+			    <md-progress-circular md-mode="indeterminate" style="width: 100px; height: 100px;"></md-progress-circular>
+		    </div>
+		    
+		    <div ng-if="type.data.length">
+			    
+			    <md-card-actions layout="row" layout-align="end center" ng-if="type.actions.global">
+	          <md-button class="md-raised md-primary md-hue-2" ng-repeat="(actionKey, action) in type.actions.global" ng-click="SearchCtrl.showGlobal(actionKey)">
+	          	{{action.title}}
+	          </md-button>
+	        </md-card-actions>
+	        
+<!--
+	        <md-card-actions layout="row" layout-align="end center" ng-if="key=='videotutorials'" ng-model="filterOnlyFree" ng-click="SearchCtrl.filterOnlyFree(filterOnlyFree)">
+		        <md-switch class="md-primary" md-no-ink>
+					    Only Free
+					  </md-switch>
+					</md-card-actions>
+					
+					<md-card-actions layout="row" layout-align="end center" ng-if="key=='tutorials'" ng-model="filterOnlyItalian" ng-click="SearchCtrl.filterOnlyItalian(filterOnlyItalian)">
+		        <md-switch class="md-primary" md-no-ink>
+					    Only Italian
+					  </md-switch>
+					</md-card-actions>
+-->
+	        
+	        <md-card ng-if="getEventsByCity && (key=='events')" style="background-color: rgba(0,96,100,0.1);">
+		        <md-card-title>
+		          <md-card-title-text>
+		          			          	
+		          	<div style="width: 100%; color: black;" layout="row" layout-align="center center">
+			          	
+			          	<span>Insert City</span>
+			          	
+			          	<md-autocomplete
+										style="width: 40%; margin-left: 1%"
+						        md-selected-item=""
+						        md-search-text-change="SearchCtrl.makeItemForAction(types.events.actions.global.getEventsByCity, searchEventsByCityText)"
+						        md-search-text="searchEventsByCityText"
+						        md-selected-item-change=""
+						        md-items=""
+						        md-min-length="0">
+							      <md-item-template>
+							        <span md-highlight-text="searchEventsByCityText" md-highlight-flags="^i">{{item}}</span>
+							      </md-item-template>
+							    </md-autocomplete>
+							    
+							    <md-button class="md-raised md-accent md-hue-2" ng-click="SearchCtrl.showDialog(null, selectedType, types.events.actions.global.getEventsByCity.item, types.events.actions.global.getEventsByCity)">
+							    	<md-icon>search</md-icon>
+							    </md-button>
+							    
+								</div>		          	
+		          	
+		          </md-card-title-text>
+	          </md-card-title>
+          </md-card>
+          
+          <md-card ng-if="filterEventsByDate && (key=='events')" style="background-color: rgba(0,96,100,0.1);">
+		        <md-card-title>
+		          <md-card-title-text>
+		          			          	
+		          	<div style="width: 100%; color: black;" layout="row" layout-align="center center">
+			          	
+			          	<span style="margin-right: 1%;">Start Date</span>
+			          	
+			          	<md-datepicker ng-model="filterStartDate" md-placeholder="Enter date"></md-datepicker>
+			          	
+			          	<span style="margin-left: 3%; margin-right: 1%;">End Date</span>
+			          	
+			          	<md-datepicker ng-model="filterEndDate" md-placeholder="Enter date"></md-datepicker>
+			          	
+			          	<md-button style="margin-left: 3%;" class="md-raised md-accent md-hue-2" ng-click="SearchCtrl.filterByDate(filterStartDate, filterEndDate)">
+							    	<md-icon>search</md-icon>
+							    </md-button>
+							    
+							    <md-button class="md-raised md-accent md-hue-2" ng-click="SearchCtrl.filterByDate(null, null)">
+							    	Reset
+							    </md-button>
+			          								    
+								</div>
+		          	
+		          </md-card-title-text>
+	          </md-card-title>
+          </md-card>
+          
+          <md-card ng-if="getGroupsByCity && (key=='groups')" style="background-color: rgba(0,96,100,0.1);">
+		        <md-card-title>
+		          <md-card-title-text>
+		          			          	
+		          	<div style="width: 100%; color: black;" layout="row" layout-align="center center">
+			          	
+			          	<span>Insert City</span>
+			          	
+			          	<md-autocomplete
+										style="width: 40%; margin-left: 1%"
+						        md-selected-item=""
+						        md-search-text-change="SearchCtrl.makeItemForAction(types.groups.actions.global.getGroupsByCity, searchGroupsByCityText)"
+						        md-search-text="searchGroupsByCityText"
+						        md-selected-item-change=""
+						        md-items=""
+						        md-min-length="0">
+							      <md-item-template>
+							        <span md-highlight-text="searchGroupsByCityText" md-highlight-flags="^i">{{item}}</span>
+							      </md-item-template>
+							    </md-autocomplete>
+							    
+							    <md-button class="md-raised md-accent md-hue-2" ng-click="SearchCtrl.showDialog(null, selectedType, types.groups.actions.global.getGroupsByCity.item, types.groups.actions.global.getGroupsByCity)">
+							    	<md-icon>search</md-icon>
+							    </md-button>
+							    
+								</div>		          	
+		          	
+		          </md-card-title-text>
+	          </md-card-title>
+          </md-card>
+			    
+			    <md-card ng-repeat="item in type.data" style="background-color: rgba(0,96,100,0.1);">
+		        <md-card-title>
+		          <md-card-title-media>
+		            <div ng-if="item.img" class="md-media-md md-whiteframe-4dp" style="width: 200px; height: auto;">
+			            <a ng-href="{{item.url}}" target="_blank"><img ng-src="{{item.img}}" /></a>
+		            </div>
+		          </md-card-title-media>
+		          <md-card-title-text style="padding-left: 2%;">
+		          
+		            <a ng-href="{{item.url}}" target="_blank">
+			            <span ng-if="item.title" class="md-headline">{{item.title}}</span>
+			            <span ng-if="item.language" class="md-headline">{{item.language}}</span>
+			          </a>
+			          
+		            <span ng-if="item.author" class="md-subhead">
+		            	<strong>Author: </strong>
+		            	{{item.author}}
+		            </span>
+		            
+		            <span ng-if="item.price" class="md-subhead">
+		            	<strong>Price: </strong>
+		            	{{item.price | currency }}
+		            	
+		            	<span ng-if="item.price =='Free' ">{{item.price}}</span>
+		            </span>
+		            
+		            <span ng-if="item.description" class="md-subhead">
+		            	<strong>Description: </strong>
+		            	<span ng-bind-html="item.description"></span>
+		            </span>
+		            
+		            <span ng-if="item.isbn" class="md-subhead">
+		            	<strong>ISBN: </strong>
+		            	{{item.isbn}}
+		            </span>
+		            
+		            <span ng-if="item.pages_number" class="md-subhead">
+		            	<strong>Pages Number: </strong>
+		            	{{item.pages_number}}
+		            </span>
+		            
+		            <span ng-if="item.publication_date" class="md-subhead">
+		            	<strong>Publication Date: </strong>
+		            	{{item.publication_date | date :'dd/MM/yyyy' }}
+		            </span>
+		            
+		            <span ng-if="item.venue_city" class="md-subhead">
+		            	<strong>Venue: </strong>
+		            	{{item.venue_city}} 
+		            	<span ng-if="item.venue_region"> ({{item.venue_region}})</span>
+		            </span>
+		            
+		            <span ng-if="item.date_start" class="md-subhead">
+		            	<strong>Start Date: </strong>
+		            	{{item.date_start * 1000 | date :'dd/MM/yyyy HH:mm' }}
+		            </span>
+		            
+		            <span ng-if="item.date_end" class="md-subhead">
+		            	<strong>End Date: </strong>
+		            	{{item.date_end * 1000| date :'dd/MM/yyyy HH:mm' }}
+		            </span>
+		            
+		            <span ng-if="item.city" class="md-subhead">
+		            	<strong>Venue: </strong>
+		            	{{item.city}} 
+		            	<span ng-if="item.region"> ({{item.region}})</span>
+		            </span>
+		            
+		            <span ng-if="item.members" class="md-subhead">
+		            	<strong>Members Number: </strong>
+		            	{{item.members}}
+		            </span>
+		            
+		            <span ng-if="item.lang" class="md-subhead">
+		            	<strong>Language: </strong>
+		            	{{item.lang}}
+		            </span>
+		            
+		            <a ng-if="item.url_framework" ng-href="{{item.url_framework}}" target="_blank" class="md-subhead">
+			            Framework Official Website
+			          </a>
+			          
+			          <a ng-if="item.url_detail" ng-href="{{item.url_detail}}" target="_blank" class="md-subhead">
+			            Framework Details
+			          </a>
+		            
+		          </md-card-title-text>
+		        </md-card-title>
+		        
+		        <md-card-actions layout="row" layout-align="end center" ng-if="type.actions.single">
+		          <md-button class="md-raised md-primary md-hue-2" ng-repeat="action in type.actions.single" ng-if="item[action.requiredField]" ng-click="SearchCtrl.showDialog($event, key, item, action)">
+		          	{{action.title}}
+		          	<span ng-repeat="field in action.titleFields">
+		          		<strong>{{item[field]}}</strong>
+		          	</span>
+		          </md-button>
+		        </md-card-actions>
+		        
+		      </md-card>
+		    </div>
+		    
+		    <div ng-if="!type.data.length && !type.loading" layout="row" layout-align="center center" style="padding-top: 10%; font-size: larger;">
+					<span>Your search did not match any results</span>
+				</div>	
+		    
+		  </md-content>
+		</md-tab>
+		
+	</md-tabs>
+
+</md-content>

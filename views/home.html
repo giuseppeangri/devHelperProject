@@ -1,0 +1,60 @@
+<md-toolbar style="background-color: transparent;
+border-top: solid 4px #006064;">
+  <div class="md-toolbar-tools">
+      	     	      
+<!--
+    <div style="width: 100%;" layout="row" layout-align="end center">
+      <md-button style="color: black;">About Us</md-button>
+      <md-button style="color: black;">Technologies</md-button>
+    </div>
+-->
+    
+  </div>
+</md-toolbar>
+
+<md-content fullscreen="68" layout="row" layout-align="center center">
+	
+	<div class="md-whiteframe-8dp" style="width: 100%; padding: 2%; background-color: #006064; margin-bottom: 10%;" layout="column" layout-align="center center">
+		
+<!--
+		<div style="width: 30%;">
+			<img layout-align="center center" src="media/logoBN.png" />
+		</div>
+-->
+
+		<div style="width: 130px; height: 130px;">
+ 			<md-icon style="font-size: 100pt; color: white;">search</md-icon>
+ 		</div>
+ 		
+ 		<p style="color: white; font-size: xx-large; margin-top: 0; margin-bottom: 0;">DevHelper</p>
+		
+	  <p style="color: white; font-size: large;">Search what you want about developing world!</p>
+
+		<input type="text" on-key-enter on-key-enter-callback="HomeCtrl.search()" />
+		
+		<md-autocomplete
+				style="width: 60%;"
+        md-selected-item="inputKeywordObj"
+        md-search-text-change=""
+        md-search-text="inputKeyword"
+        md-selected-item-change=""
+        md-items="item in HomeCtrl.querySearch(inputKeyword)"
+        md-min-length="0">
+      <md-item-template>
+        <span md-highlight-text="inputKeyword" md-highlight-flags="^i">{{item}}</span>
+      </md-item-template>
+      <md-not-found style="background-color: red;">
+        Results for <strong>"{{inputKeyword}}"</strong> may not be accurate
+      </md-not-found>
+    </md-autocomplete>
+    
+    <md-radio-group ng-model="selectedType" layout="row" style="margin-top: 2%;">
+      <md-radio-button ng-repeat="(key, value) in types" class="md-accent md-hue-1 color-bg" ng-value="key">{{value.title}}</md-radio-button>
+    </md-radio-group>
+    
+    <md-button class="md-raised md-accent md-hue-2" style="width: 20%; margin-top: 2%; color: black;" ng-click="HomeCtrl.search()">Search</md-button>
+		
+	</div>
+	
+</md-content>
+

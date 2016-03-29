@@ -1,0 +1,120 @@
+<md-dialog aria-label="{{title}}" ng-cloak>
+	<md-toolbar>
+	  <div class="md-toolbar-tools">
+	    <h2 ng-bind-html="title"></h2>
+	    <span flex></span>
+	    <md-button class="md-icon-button" ng-click="DialogCtrl.closeDialog()">
+	      <md-icon>close</md-icon>
+	    </md-button>
+	  </div>
+	</md-toolbar>
+	<md-dialog-content>
+		
+		<div ng-if="loading" layout="row" layout-align="center center" style="padding: 10%;">
+	    <md-progress-circular md-mode="indeterminate" style="width: 100px; height: 100px;"></md-progress-circular>
+    </div>
+		    
+	  <div ng-if="data">
+		
+			<md-card ng-repeat=" item in data | orderBy:'price' " style="background-color: rgba(0,96,100,0.1);">
+		    <md-card-title>
+		    
+		      <md-card-title-media>
+		        <div class="md-media-md" style="width: 200px; height: auto;">
+		          <a ng-href="{{item.url}}" target="_blank"><img ng-src="{{item.img}}" /></a>
+		        </div>
+		      </md-card-title-media>
+		      
+		      <md-card-title-text style="padding-left: 2%;">
+		      
+		        <a ng-href="{{item.url}}" target="_blank">
+		          <span class="md-headline">{{item.title}}</span>
+		        </a>
+		        
+		        <span ng-if="item.author" class="md-subhead">
+		        	<strong>Author: </strong>
+		        	{{item.author}}
+		        </span>
+		        
+		        <span ng-if="item.price" class="md-subhead">
+		        	<strong>Price: </strong>
+		        	{{ item.price | currency }}
+		        </span>
+		        
+		        <span ng-if="item.description" class="md-subhead">
+		        	<strong>Description: </strong>
+		        	<span ng-bind-html="item.description"></span>
+		        </span>
+		        
+		        <span ng-if="item.isbn" class="md-subhead">
+		        	<strong>ISBN: </strong>
+		        	{{item.isbn}}
+		        </span>
+		        
+		        <span ng-if="item.pages_number" class="md-subhead">
+		        	<strong>Pages Number: </strong>
+		        	{{item.pages_number}}
+		        </span>
+		        
+		        <span ng-if="item.publication_date" class="md-subhead">
+		        	<strong>Publication Date: </strong>
+		        	{{item.publication_date | date :'dd/MM/yyyy' }}
+		        </span>
+		        
+		        <span ng-if="item.venue_city" class="md-subhead">
+		        	<strong>Venue: </strong>
+		        	{{item.venue_city}} 
+		        	<span ng-if="item.venue_region"> ({{item.venue_region}})</span>
+		        </span>
+		        
+		        <span ng-if="item.date_start" class="md-subhead">
+		        	<strong>Start Date: </strong>
+		        	{{item.date_start | date :'dd/MM/yyyy' }}
+		        </span>
+		        
+		        <span ng-if="item.date_end" class="md-subhead">
+		        	<strong>End Date: </strong>
+		        	{{item.date_end | date :'dd/MM/yyyy' }}
+		        </span>
+		        
+		        <span ng-if="item.city" class="md-subhead">
+		        	<strong>Venue: </strong>
+		        	{{item.city}} 
+		        	<span ng-if="item.region"> ({{item.region}})</span>
+		        </span>
+		        
+		        <span ng-if="item.members" class="md-subhead">
+		        	<strong>Members Number: </strong>
+		        	{{item.members}}
+		        </span>
+		        
+		        <span ng-if="item.seller" class="md-subhead">
+		        	<strong>Seller: </strong>
+		        	{{item.seller}}
+		        </span>
+		        
+		        <span ng-if="item.type" class="md-subhead">
+		        	<strong>Type: </strong>
+		        	{{item.type}}
+		        </span>
+		        
+		      </md-card-title-text>
+		      
+		      <md-card-title-media ng-if="item.seller" layout="column" layout-align="center center">
+		        <div class="md-media-md" style="width: auto; height: auto;">
+		          <a ng-href="{{item.url}}" target="_blank">
+			          <md-icon style="font-size: 70pt; color: #006064;">shopping_cart</md-icon>
+		          </a>
+		        </div>
+		      </md-card-title-media>
+		      
+		    </md-card-title>
+		  </md-card>
+		</div>
+		
+		<div ng-if="!data.length && !loading" layout="row" layout-align="center center" style="padding: 10%; font-size: larger;">
+			<span>Your search did not match any results</span>
+		</div>					
+	
+	</md-dialog-content>
+</md-dialog>
