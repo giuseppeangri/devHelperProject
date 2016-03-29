@@ -1,0 +1,9 @@
+bower_components/
+vendor/
+storage/devHelper_cache.db
+
+webservice/devHelper_cache.db
+
+webservice/connect.php
+
+webservice/connect.php
